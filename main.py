@@ -1,6 +1,7 @@
 import string
 import random
 from player import Player
+
 class Main:
     def __init__(self):
         self.numberOfPlayers = 0
@@ -63,7 +64,6 @@ class Main:
                 continue
             else:
                 break
-        #print("Number of rounds: " + (str(self.numberOfRounds)))
 
     #generate random number between -5 and 5 inclusive
     def generateRandomNumber(self):
@@ -108,10 +108,7 @@ class Main:
         for player in allPlayers:
             print(str(index) + ": " + player.name + " with " + str(player.score) + " points")
             index = index + 1
-
-
-
-
+            
 if __name__ == "__main__": 
   main = Main()
   main.main()
