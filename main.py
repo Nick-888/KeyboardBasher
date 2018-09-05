@@ -1,13 +1,18 @@
+import string
+import random
 class Main:
     def __init__(self):
         self.numberOfPlayers = 0
         self.playersNames = []
         self.numberOfRounds = 0
+        self.letterToPoints = dict()
+        self.playerToPoints = dict()
 
     def main(self):
         self.enterNumberOfPlayers()
         self.enterPlayerNames()
         self.enterNumberOfRounds()
+        self.keyboardBash()
 
     #Ask user to enter number of players
     def enterNumberOfPlayers(self):
@@ -57,6 +62,47 @@ class Main:
             else:
                 break
         print("Number of rounds: " + (str(self.numberOfRounds)))
+
+    #generate random number between -5 and 5 inclusive
+    def generateRandomNumber(self):
+        return random.randrange(-5,6)
+
+
+    #map each character on keyboard to random value
+    def createLetterToPoints(self):
+        allChars = string.printable
+        for char in allChars:
+            self.letterToPoints[char] = self.generateRandomNumber()
+        print(self.letterToPoints)
+
+    #let the user bash their keyboard
+    def keyboardBash(self):
+        currentRoundNumber = 0
+        while currentRoundNumber < self.numberOfRounds:
+            print("  ----------------ROUND " + str(currentRoundNumber + 1) + " ----------------")
+            self.createLetterToPoints()
+            #print(letterToPoints)
+            for player in self.playersNames:
+                playerAttempt = input(player + " 's turn. Bash the keyboard! ")
+                playerScore = 0
+                if player in self.playerToPoints:
+                    playerScore = self.playerToPoints[player]
+                    #print("retrive score. player score is: " + str(playerScore))
+
+                roundScore = 0
+                for character in playerAttempt:
+                    #print("adding : " + str(letterToPoints[character]))
+                    #playerScore = playerScore + letterToPoints[character]
+                    roundScore = roundScore + self.letterToPoints[character]
+                
+                print(player + " has scored: " + str(roundScore))
+                playerScore = playerScore + roundScore
+                self.playerToPoints[player] = playerScore
+            currentRoundNumber = currentRoundNumber + 1
+        print(self.playerToPoints)
+
+    #method to sort playerToPoints dictionary
+
 
 
 if __name__ == "__main__": 
